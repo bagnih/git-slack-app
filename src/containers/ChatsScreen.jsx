@@ -3,6 +3,9 @@ import { store } from "../store/store";
 import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
 import SendMessageForm from '../components/SendMessageForm';
+// import TypingIndicator from '../components/TypingIndicator';
+import WhosOnlineList from '../components/WhosOnlineList';
+import RoomList from '../components/Rooms';
 
 function mapStateToProps(state) {
   return {
@@ -14,11 +17,15 @@ function mapStateToProps(state) {
 class ChatScreen extends Component {
   constructor(props) {
     super(props);
-    this.sendMessage = this.sendMessage.bind(this)
+    this.sendMessage = this.sendMessage.bind(this);
+    this.sendTypingEvent = this.sendTypingEvent.bind(this);
+  }
+
+  sendTypingEvent() {
+    this.props.connectChatManager.currentUser.isTypingIn({ roomId: this.props.connectChatManager.currentRoom.id });
   }
 
   sendMessage(text) {
-    debugger;
     this.props.connectChatManager.currentUser.sendMessage({
       text,
       roomId: this.props.connectChatManager.currentRoom.id,
@@ -46,6 +53,13 @@ class ChatScreen extends Component {
         backgroundColor: '#2c303b',
         color: 'white',
       },
+      availableRooms: {
+        width: '300px',
+        flex: 'none',
+        padding: 20,
+        backgroundColor: '#2c303b',
+        color: 'white',
+      },
       chatListContainer: {
         padding: 20,
         width: '85%',
@@ -58,15 +72,23 @@ class ChatScreen extends Component {
       <div style={styles.container}>
         <div style={styles.chatContainer}>
           <aside style={styles.whosOnlineListContainer}>
-            <h2>Who's online PLACEHOLDER</h2>
+            <WhosOnlineList
+              currentUser={this.props.connectChatManager.currentUser}
+              users={this.props.connectChatManager.currentRoom.users}
+            />
           </aside>
+
           <section style={styles.chatListContainer}>
             <MessageList
               messages={this.props.connectChatManager.messages}
               style={styles.chatList}
             />
-            <SendMessageForm onSubmit={this.sendMessage} />
+            {/* <TypingIndicator usersWhoAreTyping={this.props.connectChatManager.usersWhoAreTyping} /> */}
+            <SendMessageForm onSubmit={this.sendMessage} onChange={this.sendTypingEvent} />
           </section>
+          <aside style={styles.availableRooms}>
+            <RoomList rooms={this.props.connectChatManager.chatRooms} />
+          </aside>
         </div>
       </div>
     )

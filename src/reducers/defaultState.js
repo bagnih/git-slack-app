@@ -3,5 +3,6 @@ export const defaultState = {
   currentScreen: 'WhatIsYourUsernameScreen',
   currentUser: {},
   currentRoom: {},
-  messages: []
+  messages: [],
+  usersWhoAreTyping: []
 };

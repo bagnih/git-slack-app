@@ -28,7 +28,7 @@
     "prettier": "^1.14.2"
   },
   "scripts": {
-    "start": "concurrently \"node ./server.js\" \"PORT=3006 react-scripts start\"",
+    "start": "concurrently \"node ./server.js\" \" react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

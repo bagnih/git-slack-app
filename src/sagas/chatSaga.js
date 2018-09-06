@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import Chatkit from '@pusher/chatkit';
-import { store } from "../store/store";
+// import { store } from "../store/store";
+import { connectToRoom } from "./subscribeToRoomSaga";
 
 export function* connectChatManager({ payload }) {
   try {
@@ -17,17 +18,13 @@ export function* connectChatManager({ payload }) {
 
     yield put({ type: 'CONNECT_SAGA', data: { currentUser } });
 
-    const currentRoom = yield call(currentUser.subscribeToRoom, {
-      roomId: 15252954,
-      messageLimit: 100,
-      hooks: {
-        onNewMessage: message => {
-          store.dispatch({ type: 'CONNECT_SAGA', data: { message } });
-        }
-      }
-    });
+    const chatRooms = yield call(currentUser.getJoinableRooms);
+    yield put({ type: 'CONNECT_SAGA', data: { chatRooms } });
 
-    yield put({ type: 'CONNECT_SAGA', data: { currentRoom } });
+    if (chatRooms.length) {
+      yield connectToRoom({ currentUser, roomId: chatRooms[0].id });
+    }
+
 
   } catch (err) {
     throw err;
