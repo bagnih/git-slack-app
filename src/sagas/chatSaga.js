@@ -10,7 +10,7 @@ export function* connectChatManager({ payload }) {
       instanceLocator: 'v1:us1:555c30df-ce5c-4cc6-8363-b36a9eae6f15',
       userId: payload,
       tokenProvider: new Chatkit.TokenProvider({
-        url: 'http://localhost:3001/authenticate',
+        url: `${process.env.REACT_APP_URL}authenticate`,
       })
     });
 
