@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
@@ -25,6 +27,8 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.5.0",
+    "jest-cli": "^23.5.0",
     "prettier": "^1.14.2"
   },
   "scripts": {
