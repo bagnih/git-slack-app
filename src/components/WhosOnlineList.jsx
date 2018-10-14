@@ -7,13 +7,13 @@ class WhosOnlineList extends Component {
         {this.props.users.map((user, index) => {
           if (user.id === this.props.currentUser.id) {
             return (
-              <WhosOnlineListItem key={index} presenceState="online">
+              <WhosOnlineListItem key={index} presenceState="online" onClick={this.props.onClick} user={user}>
                 {user.name} (You)
               </WhosOnlineListItem>
             )
           }
           return (
-            <WhosOnlineListItem key={index} presenceState={user.presence.state}>
+            <WhosOnlineListItem key={index} presenceState={user.presence.state} onClick={this.props.onClick} user={user}>
               {user.name}
             </WhosOnlineListItem>
           )
@@ -50,13 +50,14 @@ class WhosOnlineListItem extends Component {
       },
     }
     return (
-      <li style={styles.li}>
+      <li style={styles.li} onClick={e => this.props.onClick(this.props.user)}>
         <div
           style={{
             ...styles.div,
             backgroundColor:
               this.props.presenceState === 'online' ? '#539eff' : '#414756',
           }}
+
         />
         {this.props.children}
       </li>

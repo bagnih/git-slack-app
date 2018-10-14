@@ -32,6 +32,11 @@ class ChatScreen extends Component {
     });
   }
 
+  privateMsg = (user) => {
+    store.dispatch({ type: 'CREATE_CHAT_ROOM', payload: { user, currentUser: this.props.connectChatManager.currentUser } });
+    console.log(user);
+  }
+
   componentDidMount() {
     store.dispatch({ type: 'CONNECT_CHAT_MANAGER', payload: this.props.currentUsername })
   }
@@ -75,6 +80,7 @@ class ChatScreen extends Component {
             <WhosOnlineList
               currentUser={this.props.connectChatManager.currentUser}
               users={this.props.connectChatManager.currentRoom.users}
+              onClick={this.privateMsg}
             />
           </aside>
 
