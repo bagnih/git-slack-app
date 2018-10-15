@@ -13,6 +13,7 @@ export function* createRoom({ payload }) {
 
         yield connectToRoom({ currentUser, roomId: room.id });
     } catch (e) {
+        // test for CI/CD
         console.log(e);
     }
 }
